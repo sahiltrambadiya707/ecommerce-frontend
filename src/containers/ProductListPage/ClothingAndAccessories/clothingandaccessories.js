@@ -13,7 +13,7 @@ const ClothingAndAccessories = (props) => {
   useEffect(() => {
     const { match } = props;
     dispatch(getProductsBySlug(match.params.slug));
-  }, []);
+  }, [dispatch, props]);
 
   return (
     <div style={{ padding: "10px" }}>

@@ -28,32 +28,36 @@ const OrderPage = (props) => {
           ]}
           breedIcon={<IoIosArrowForward />}
         />
-        {user.orders.map((order) => {
-          return order.items.map((item) => (
-            <Card style={{ display: "block", margin: "5px 0" }}>
-              <Link
-                to={`/order_details/${order._id}`}
-                className="orderItemContainer"
-              >
-                <div className="orderImgContainer">
-                  <img
-                    className="orderImg"
-                    // src={item.productId.productPictures[0].img}
-                     alt="img"
-                  />
-                </div>
-                <div className="orderRow">
-                  <div className="orderName">{item.productId.name}</div>
-                  <div className="orderPrice">
-                    <BiRupee />
-                    {item.payablePrice}
-                  </div>
-                  <div>{order.paymentStatus}</div>
-                </div>
-              </Link>
-            </Card>
-          ));
-        })}
+        {user.orders &&
+          user.orders.map((order) => {
+            return (
+              order.items &&
+              order.items.map((item) => (
+                <Card style={{ display: "block", margin: "5px 0" }}>
+                  <Link
+                    to={`/order_details/${order._id}`}
+                    className="orderItemContainer"
+                  >
+                    <div className="orderImgContainer">
+                      <img
+                        className="orderImg"
+                        src={item.productId.productPictures[0].img}
+                        alt="img"
+                      />
+                    </div>
+                    <div className="orderRow">
+                      <div className="orderName">{item.productId.name}</div>
+                      <div className="orderPrice">
+                        <BiRupee />
+                        {item.payablePrice}
+                      </div>
+                      <div>{order.paymentStatus}</div>
+                    </div>
+                  </Link>
+                </Card>
+              ))
+            );
+          })}
       </div>
     </Layout>
   );

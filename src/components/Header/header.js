@@ -63,7 +63,7 @@ const Header = (props) => {
   const renderLoggedInMenu = () => {
     return (
       <DropdownMenu
-        menu={<a className="fullName">{auth.user.fullName}</a>}
+        menu={<Link to="" className="fullName">{auth.user.fullName}</Link>}
         menus={[
           { label: "My Profile", href: "", icon: null },
           { label: "SuperCoin Zone", href: "", icon: null },
@@ -89,15 +89,16 @@ const Header = (props) => {
     return (
       <DropdownMenu
         menu={
-          <a
+          <Link
             className="loginButton"
             onClick={() => {
               setSignup(false);
               setLoginModal(true);
             }}
+            to=""
           >
             Login
-          </a>
+          </Link>
         }
         menus={[
           { label: "My Profile", href: "", icon: null },
@@ -117,15 +118,16 @@ const Header = (props) => {
         firstMenu={
           <div className="firstmenu">
             <span>New Customer?</span>
-            <a
+            <Link
               onClick={() => {
                 setLoginModal(true);
                 setSignup(true);
               }}
               style={{ color: "#2874f0" }}
+              to=""
             >
               Sign Up
-            </a>
+            </Link>
           </div>
         }
       />
@@ -240,7 +242,7 @@ const Header = (props) => {
           {auth.authenticate ? renderLoggedInMenu() : renderNonLoggedInMenu()}
           <DropdownMenu
             menu={
-              <Link className="more">
+              <Link to="" className="more">
                 <span>More</span>
                 <IoIosArrowDown />
               </Link>

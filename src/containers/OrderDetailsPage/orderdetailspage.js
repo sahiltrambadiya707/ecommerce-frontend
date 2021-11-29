@@ -80,13 +80,13 @@ const OrderDetailsPage = (props) => {
           </div>
         </Card>
 
-        {orderDetails.items.map((item, index) => (
+        {orderDetails.items && orderDetails.items.map((item, index) => (
           <Card
             style={{ display: "flex", padding: "20px 0", margin: "10px 0" }}
           >
             <div className="flexRow">
               <div className="delItemImgContainer">
-                {/* <img src={item.productId.productPictures[0].img} alt="" /> */}
+                <img src={item.productId.productPictures[0].img} alt="img" />
               </div>
               <div style={{ width: "250px" }}>
                 <div className="delItemName">{item.productId.name}</div>

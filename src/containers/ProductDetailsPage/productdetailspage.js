@@ -7,7 +7,6 @@ import { BiRupee } from "react-icons/bi";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { Breed, MaterialButton } from "../../components/MaterialUI/materialui";
 import "./productdetailspage.css";
-import { generatePublicUrl } from "../../urlConfig";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../actions";
 
@@ -43,12 +42,10 @@ const ProductDetailsPage = (props) => {
           </div>
           <div className="productDescContainer">
             <div className="productDescImgContainer">
-              {/* <img
-                src={generatePublicUrl(
-                  product.productDetails.productPictures[0].img
-                )}
-                alt={`${product.productDetails.productPictures[0].img}`}
-              /> */}
+              <img
+                src={product.productDetails.productPictures[0].img}
+                alt="img"
+              />
             </div>
 
             {/* action buttons */}
@@ -63,7 +60,7 @@ const ProductDetailsPage = (props) => {
                 icon={<IoMdCart />}
                 onClick={() => {
                   const { _id, name, price } = product.productDetails;
-                  // const img = product.productDetails.productPictures[0].img;
+                  const img = product.productDetails.productPictures[0].img;
                   dispatch(addToCart({ _id, name, price }));
                   props.history.push(`/cart`);
                 }}
@@ -76,6 +73,7 @@ const ProductDetailsPage = (props) => {
                   marginLeft: "5px",
                 }}
                 icon={<AiFillThunderbolt />}
+                onClick={() => props.history.push(`/checkout`)}
               />
             </div>
           </div>
