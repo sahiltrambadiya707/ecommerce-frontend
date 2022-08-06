@@ -21,9 +21,7 @@ export const getAddress = () => {
           payload: { error },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };
 
@@ -33,7 +31,7 @@ export const addAddress = (payload) => {
       dispatch({ type: userConstants.ADD_USER_ADDRESS_REQUEST });
       const res = await axios.post(`/user/address/create`, { payload });
       if (res.status === 201) {
-        // console.log(res);
+        // (res);
         const {
           address: { address },
         } = res.data;
@@ -48,9 +46,7 @@ export const addAddress = (payload) => {
           payload: { error },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };
 
@@ -60,7 +56,7 @@ export const addOrder = (payload) => {
       dispatch({ type: userConstants.ADD_USER_ORDER_REQUEST });
       const res = await axios.post(`/addOrder`, payload);
       if (res.status === 201) {
-        // console.log(res);
+        // (res);
         const { order } = res.data;
         dispatch({
           type: cartConstants.RESET_CART,
@@ -76,9 +72,7 @@ export const addOrder = (payload) => {
           payload: { error },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };
 
@@ -88,7 +82,7 @@ export const getOrders = () => {
       const res = await axios.get(`/getOrders`);
       dispatch({ type: userConstants.GET_USER_ORDER_REQUEST });
       if (res.status === 200) {
-        // console.log(res);
+        // (res);
         const { orders } = res.data;
         dispatch({
           type: userConstants.GET_USER_ORDER_SUCCESS,
@@ -101,9 +95,7 @@ export const getOrders = () => {
           payload: { error },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };
 
@@ -114,7 +106,7 @@ export const getOrder = (payload) => {
       const res = await axios.post(`/getOrder`, payload);
       dispatch({ type: userConstants.GET_USER_ORDER_DETAILS_REQUEST });
       if (res.status === 200) {
-        // console.log(res);
+        // (res);
         const { order } = res.data;
         dispatch({
           type: userConstants.GET_USER_ORDER_DETAILS_SUCCESS,
@@ -127,8 +119,6 @@ export const getOrder = (payload) => {
           payload: { error },
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 };

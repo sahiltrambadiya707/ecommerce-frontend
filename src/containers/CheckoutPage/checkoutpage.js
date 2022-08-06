@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addOrder, getAddress, getCartItems } from "../../actions";
 import Layout from "../../components/Layout/layout";
-import {
-  Anchor,
-  MaterialButton,
-  MaterialInput,
-} from "../../components/MaterialUI/materialui";
+import { Anchor, MaterialButton, MaterialInput } from "../../components/MaterialUI/materialui";
 import PriceDetails from "../../components/PriceDetails/pricedetails";
 import Card from "../../components/UI/Card/card";
 import CartPage from "../CartPage/cartpage";
@@ -22,16 +18,13 @@ import "./checkoutpage.css";
 const CheckoutStep = (props) => {
   return (
     <div className="checkoutStep">
-      <div
-        onClick={props.onClick}
-        className={`checkoutHeader ${props.active && "active"}`}
-      >
+      <div onClick={props?.onClick} className={`checkoutHeader ${props?.active && "active"}`}>
         <div>
-          <span className="stepNumber">{props.stepNumber}</span>
-          <span className="stepTitle">{props.title}</span>
+          <span className="stepNumber">{props?.stepNumber}</span>
+          <span className="stepTitle">{props?.title}</span>
         </div>
       </div>
-      {props.body && props.body}
+      {props?.body && props?.body}
     </div>
   );
 };
@@ -49,15 +42,15 @@ const Address = ({
         <input name="address" onClick={() => selectAddress(adr)} type="radio" />
       </div>
       <div className="flexRow sb addressinfo">
-        {!adr.edit ? (
+        {!adr?.edit ? (
           <div style={{ width: "100%" }}>
             <div className="addressDetail">
               <div>
-                <span className="addressName">{adr.name}</span>
-                <span className="addressType">{adr.addressType}</span>
-                <span className="addressMobileNumber">{adr.mobileNumber}</span>
+                <span className="addressName">{adr?.name}</span>
+                <span className="addressType">{adr?.addressType}</span>
+                <span className="addressMobileNumber">{adr?.mobileNumber}</span>
               </div>
-              {adr.selected && (
+              {adr?.selected && (
                 <Anchor
                   name="EDIT"
                   onClick={() => enableAddressEditForm(adr)}
@@ -69,9 +62,9 @@ const Address = ({
               )}
             </div>
             <div className="fullAddress">
-              {adr.address} <br /> {`${adr.state} - ${adr.pinCode}`}
+              {adr?.address} <br /> {`${adr?.state} - ${adr?.pinCode}`}
             </div>
-            {adr.selected && (
+            {adr?.selected && (
               <MaterialButton
                 title="DELIVERY HERE"
                 onClick={() => confirmDeliveryAddress(adr)}
@@ -96,8 +89,8 @@ const Address = ({
 };
 
 const CheckoutPage = (props) => {
-  const user = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state?.user);
+  const auth = useSelector((state) => state?.auth);
   const [newAddress, setNewAddress] = useState(false);
   const [address, setAddress] = useState([]);
   const [confirmAddress, setConfirmAddress] = useState(false);
@@ -106,7 +99,7 @@ const CheckoutPage = (props) => {
   const [orderConfirmation, setOrderConfirmation] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const [confirmOrder, setConfirmOrder] = useState(false);
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state?.cart);
   const dispatch = useDispatch();
 
   const onAddressSubmit = (addr) => {
@@ -116,11 +109,9 @@ const CheckoutPage = (props) => {
   };
 
   const selectAddress = (addr) => {
-    //console.log(addr);
-    const updatedAddress = address.map((adr) =>
-      adr._id === addr._id
-        ? { ...adr, selected: true }
-        : { ...adr, selected: false }
+    //(addr);
+    const updatedAddress = address?.map((adr) =>
+      adr?._id === addr?._id ? { ...adr, selected: true } : { ...adr, selected: false }
     );
     setAddress(updatedAddress);
   };
@@ -133,7 +124,7 @@ const CheckoutPage = (props) => {
 
   const enableAddressEditForm = (addr) => {
     const updatedAddress = address.map((adr) =>
-      adr._id === addr._id ? { ...adr, edit: true } : { ...adr, edit: false }
+      adr?._id === addr?._id ? { ...adr, edit: true } : { ...adr, edit: false }
     );
     setAddress(updatedAddress);
   };
@@ -145,49 +136,46 @@ const CheckoutPage = (props) => {
   };
 
   const onConfirmOrder = () => {
-    const totalAmount = Object.keys(cart.cartItems).reduce(
-      (totalPrice, key) => {
-        const { price, qty } = cart.cartItems[key];
-        return totalPrice + price * qty;
-      },
-      0
-    );
-    const items = Object.keys(cart.cartItems).map((key) => ({
+    const totalAmount = Object?.keys(cart?.cartItems).reduce((totalPrice, key) => {
+      const { price, qty } = cart?.cartItems[key];
+      return totalPrice + price * qty;
+    }, 0);
+    const items = Object?.keys(cart?.cartItems).map((key) => ({
       productId: key,
-      payablePrice: cart.cartItems[key].price,
-      purchasedQty: cart.cartItems[key].qty,
+      payablePrice: cart?.cartItems[key]?.price,
+      purchasedQty: cart?.cartItems[key]?.qty,
     }));
     const payload = {
-      addressId: selectedAddress._id,
+      addressId: selectedAddress?._id,
       totalAmount,
       items,
       paymentStatus: "pending",
       paymentType: "cod",
     };
 
-    // console.log(payload);
+    // (payload);
     dispatch(addOrder(payload));
     setConfirmOrder(true);
   };
 
   useEffect(() => {
-    auth.authenticate && dispatch(getAddress());
-    auth.authenticate && dispatch(getCartItems());
-  }, [auth.authenticate, dispatch]);
+    auth?.authenticate && dispatch(getAddress());
+    auth?.authenticate && dispatch(getCartItems());
+  }, [auth?.authenticate, dispatch]);
 
   useEffect(() => {
-    const address = user.address.map((adr) => ({
+    const address = user?.address?.map((adr) => ({
       ...adr,
       selected: false,
       edit: false,
     }));
     setAddress(address);
     //user.address.length === 0 && setNewAddress(true);
-  }, [user.address]);
+  }, [user?.address]);
 
   useEffect(() => {
-    if (confirmOrder && user.placedOrderId) {
-      props.history.push(`/order_details/${user.placedOrderId}`);
+    if (confirmOrder && user?.placedOrderId) {
+      props?.history?.push(`/order_details/${user?.placedOrderId}`);
     }
   }, [confirmOrder, props.history, user.placedOrderId]);
 
@@ -199,12 +187,12 @@ const CheckoutPage = (props) => {
           <CheckoutStep
             stepNumber={"1"}
             title={"LOGIN"}
-            active={!auth.authenticate}
+            active={!auth?.authenticate}
             body={
-              auth.authenticate ? (
+              auth?.authenticate ? (
                 <div className="loggedInId">
-                  <span style={{ fontWeight: 500 }}>{auth.user.fullName}</span>
-                  <span style={{ margin: "0 5px" }}>{auth.user.email}</span>
+                  <span style={{ fontWeight: 500 }}>{auth?.user?.fullName}</span>
+                  <span style={{ margin: "0 5px" }}>{auth?.user?.email}</span>
                 </div>
               ) : (
                 <div>
@@ -216,11 +204,11 @@ const CheckoutPage = (props) => {
           <CheckoutStep
             stepNumber={"2"}
             title={"DELIVERY ADDRESS"}
-            active={!confirmAddress && auth.authenticate}
+            active={!confirmAddress && auth?.authenticate}
             body={
               <>
                 {confirmAddress ? (
-                  <div className="stepCompleted">{`${selectedAddress.name} ${selectedAddress.address} - ${selectedAddress.pinCode}`}</div>
+                  <div className="stepCompleted">{`${selectedAddress?.name} ${selectedAddress?.address} - ${selectedAddress?.pinCode}`}</div>
                 ) : (
                   address.map((adr) => (
                     <Address
@@ -256,9 +244,7 @@ const CheckoutPage = (props) => {
               orderSummary ? (
                 <CartPage onlyCartItems={true} />
               ) : orderConfirmation ? (
-                <div className="stepCompleted">
-                  {Object.keys(cart.cartItems).length} items
-                </div>
+                <div className="stepCompleted">{Object.keys(cart?.cartItems)?.length} items</div>
               ) : null
             }
           />
@@ -277,8 +263,7 @@ const CheckoutPage = (props) => {
                 }}
               >
                 <p style={{ fontSize: "12px" }}>
-                  Order confirmation email will be sent to{" "}
-                  <strong>{auth.user.email}</strong>
+                  Order confirmation email will be sent to <strong>{auth?.user?.email}</strong>
                 </p>
                 <MaterialButton
                   title="CONTINUE"
@@ -324,11 +309,11 @@ const CheckoutPage = (props) => {
 
         {/* Price Component */}
         <PriceDetails
-          totalItem={Object.keys(cart.cartItems).reduce(function (qty, key) {
-            return qty + cart.cartItems[key].qty;
+          totalItem={Object.keys(cart?.cartItems).reduce(function (qty, key) {
+            return qty + cart?.cartItems[key]?.qty;
           }, 0)}
-          totalPrice={Object.keys(cart.cartItems).reduce((totalPrice, key) => {
-            const { price, qty } = cart.cartItems[key];
+          totalPrice={Object.keys(cart?.cartItems)?.reduce((totalPrice, key) => {
+            const { price, qty } = cart?.cartItems[key];
             return totalPrice + price * qty;
           }, 0)}
         />

@@ -9,20 +9,20 @@ import { MaterialButton } from "../../components/MaterialUI/materialui";
 import "./cartpage.css";
 
 const CartPage = (props) => {
-  const cart = useSelector((state) => state.cart);
-  const auth = useSelector((state) => state.auth);
-  const [cartItems, setCartItems] = useState(cart.cartItems);
+  const cart = useSelector((state) => state?.cart);
+  const auth = useSelector((state) => state?.auth);
+  const [cartItems, setCartItems] = useState(cart?.cartItems);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setCartItems(cart.cartItems);
-  }, [cart.cartItems]);
+    setCartItems(cart?.cartItems);
+  }, [cart?.cartItems]);
 
   useEffect(() => {
-    if (auth.authenticate) {
+    if (auth?.authenticate) {
       dispatch(getCartItems());
     }
-  }, [auth.authenticate, dispatch]);
+  }, [auth?.authenticate, dispatch]);
 
   const onQuantityIncrement = (_id, qty) => {
     const { name, price, img } = cartItems[_id];
@@ -41,7 +41,7 @@ const CartPage = (props) => {
   if (props.onlyCartItems) {
     return (
       <>
-        {Object.keys(cartItems).map((key, index) => (
+        {Object?.keys(cartItems).map((key, index) => (
           <CartItem
             key={index}
             cartItem={cartItems[key]}
@@ -61,7 +61,7 @@ const CartPage = (props) => {
           headerRight={<div>Deliver to</div>}
           style={{ width: "calc(100% - 400px)", overflow: "hidden" }}
         >
-          {Object.keys(cartItems).map((key, index) => (
+          {Object?.keys(cartItems).map((key, index) => (
             <CartItem
               key={index}
               cartItem={cartItems[key]}
@@ -86,17 +86,17 @@ const CartPage = (props) => {
               <MaterialButton
                 title="PLACE ORDER"
                 bgColor="#fb641b"
-                onClick={() => props.history.push(`/checkout`)}
+                onClick={() => props?.history?.push(`/checkout`)}
               />
             </div>
           </div>
         </Card>
         <PriceDetails
-          totalItem={Object.keys(cart.cartItems).reduce(function (qty, key) {
-            return qty + cart.cartItems[key].qty;
+          totalItem={Object?.keys(cart?.cartItems).reduce(function (qty, key) {
+            return qty + cart?.cartItems[key]?.qty;
           }, 0)}
-          totalPrice={Object.keys(cart.cartItems).reduce((totalPrice, key) => {
-            const { price, qty } = cart.cartItems[key];
+          totalPrice={Object.keys(cart?.cartItems).reduce((totalPrice, key) => {
+            const { price, qty } = cart?.cartItems[key];
             return totalPrice + price * qty;
           }, 0)}
         />

@@ -1,44 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAddress } from "../../actions";
-import {
-  MaterialButton,
-  MaterialInput,
-} from "../../components/MaterialUI/materialui";
+import { MaterialButton, MaterialInput } from "../../components/MaterialUI/materialui";
 import "./checkoutpage.css";
 
 const AddressForm = (props) => {
   const { initialData } = props;
-  const [name, setName] = useState(initialData ? initialData.name : "");
-  const [mobileNumber, setMobileNumber] = useState(
-    initialData ? initialData.mobileNumber : ""
-  );
-  const [pinCode, setPinCode] = useState(
-    initialData ? initialData.pinCode : ""
-  );
-  const [locality, setLocality] = useState(
-    initialData ? initialData.locality : ""
-  );
-  const [address, setAddress] = useState(
-    initialData ? initialData.address : ""
-  );
+  const [name, setName] = useState(initialData ? initialData?.name : "");
+  const [mobileNumber, setMobileNumber] = useState(initialData ? initialData?.mobileNumber : "");
+  const [pinCode, setPinCode] = useState(initialData ? initialData?.pinCode : "");
+  const [locality, setLocality] = useState(initialData ? initialData?.locality : "");
+  const [address, setAddress] = useState(initialData ? initialData?.address : "");
   const [cityDistrictTown, setCityDistrictTown] = useState(
-    initialData ? initialData.cityDistrictTown : ""
+    initialData ? initialData?.cityDistrictTown : ""
   );
-  const [state, setState] = useState(initialData ? initialData.state : "");
-  const [landmark, setLandmark] = useState(
-    initialData ? initialData.landmark : ""
-  );
+  const [state, setState] = useState(initialData ? initialData?.state : "");
+  const [landmark, setLandmark] = useState(initialData ? initialData?.landmark : "");
   const [alternatePhone, setAlternatePhone] = useState(
-    initialData ? initialData.alternatePhone : ""
+    initialData ? initialData?.alternatePhone : ""
   );
-  const [addressType, setAddressType] = useState(
-    initialData ? initialData.addressType : ""
-  );
+  const [addressType, setAddressType] = useState(initialData ? initialData?.addressType : "");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state?.user);
   const [submitFlag, setSubmitFlag] = useState(false);
-  const [id, setId] = useState(initialData ? initialData._id : "");
+  const [id, setId] = useState(initialData ? initialData?._id : "");
 
   const inputContainer = {
     width: "100%",
@@ -60,7 +45,7 @@ const AddressForm = (props) => {
         addressType,
       },
     };
-    // console.log(payload);
+    // (payload);
     if (id) {
       payload.address._id = id;
     }
@@ -69,9 +54,9 @@ const AddressForm = (props) => {
   };
 
   useEffect(() => {
-    // console.log("addressCount", user.address);
+    // ("addressCount", user.address);
     if (submitFlag) {
-      // console.log("where are we", user);
+      // ("where are we", user);
       let _address = {};
       if (id) {
         _address = {
@@ -88,7 +73,7 @@ const AddressForm = (props) => {
           addressType,
         };
       } else {
-        _address = user.address.slice(user.address.length - 1)[0];
+        _address = user?.address?.slice(user?.address?.length - 1)[0];
       }
 
       props.onSubmitForm(_address);
@@ -108,7 +93,7 @@ const AddressForm = (props) => {
     state,
     submitFlag,
     user,
-    user.address,
+    user?.address,
   ]);
 
   const renderAddressForm = () => {
@@ -116,11 +101,7 @@ const AddressForm = (props) => {
       <>
         <div className="flexRow">
           <div style={inputContainer}>
-            <MaterialInput
-              label="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <MaterialInput label="Name" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div style={inputContainer}>
             <MaterialInput
@@ -165,11 +146,7 @@ const AddressForm = (props) => {
             />
           </div>
           <div style={inputContainer}>
-            <MaterialInput
-              label="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
+            <MaterialInput label="State" value={state} onChange={(e) => setState(e.target.value)} />
           </div>
         </div>
         <div className="flexRow">
@@ -226,7 +203,7 @@ const AddressForm = (props) => {
           <MaterialButton
             title="Cancel"
             bgColor="rgb(251, 100, 27)"
-            onClick={props.onCancel}
+            onClick={props?.onCancel}
             style={{
               width: "250px",
               margin: "20px 0",
@@ -237,7 +214,7 @@ const AddressForm = (props) => {
     );
   };
 
-  if (props.withoutLayout) {
+  if (props?.withoutLayout) {
     return <div>{renderAddressForm()}</div>;
   }
 

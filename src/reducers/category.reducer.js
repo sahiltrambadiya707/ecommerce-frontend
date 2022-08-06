@@ -13,28 +13,28 @@ const buildNewCategories = (parentId, categories, category) => {
     return [
       ...categories,
       {
-        _id: category._id,
-        name: category.name,
-        slug: category.slug,
+        _id: category?._id,
+        name: category?.name,
+        slug: category?.slug,
         children: [],
       },
     ];
   }
   for (let cat of categories) {
-    if (cat._id === parentId) {
+    if (cat?._id === parentId) {
       myCategories.push({
         ...cat,
-        children: cat.children
+        children: cat?.children
           ? buildNewCategories(
               parentId,
               [
-                ...cat.children,
+                ...cat?.children,
                 {
-                  _id: category._id,
-                  name: category.name,
-                  slug: category.slug,
-                  parentId: category.parentId,
-                  children: category.children,
+                  _id: category?._id,
+                  name: category?.name,
+                  slug: category?.slug,
+                  parentId: category?.parentId,
+                  children: category?.children,
                 },
               ],
               category
@@ -44,8 +44,8 @@ const buildNewCategories = (parentId, categories, category) => {
     } else {
       myCategories.push({
         ...cat,
-        children: cat.children
-          ? buildNewCategories(parentId, cat.children, category)
+        children: cat?.children
+          ? buildNewCategories(parentId, cat?.children, category)
           : [],
       });
     }
@@ -82,7 +82,7 @@ export default (state = initState, action) => {
         state.categories,
         category
       );
-      // console.log("updatedCategories", updatedCategories);
+      // ("updatedCategories", updatedCategories);
       return {
         ...state,
         categories: updatedCategories,

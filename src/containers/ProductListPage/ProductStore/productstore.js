@@ -10,21 +10,21 @@ import Rating from "../../../components/UI/rating";
 import Price from "../../../components/UI/price";
 
 const ProductStore = (props) => {
-  const product = useSelector((state) => state.product);
-  const priceRange = product.priceRange;
+  const product = useSelector((state) => state?.product);
+  const priceRange = product?.priceRange;
   const dispatch = useDispatch();
 
   useEffect(() => {
     const { match } = props;
-    dispatch(getProductBySlug(match.params.slug));
+    dispatch(getProductBySlug(match?.params?.slug));
   }, [dispatch, props]);
 
   return (
     <>
-      {Object.keys(product.productsByPrice).map((key, index) => {
+      {Object.keys(product?.productsByPrice)?.map((key, index) => {
         return (
           <Card
-            headerLeft={`${props.match.params.slug} mobile under ${priceRange[key]}`}
+            headerLeft={`${props?.match?.params?.slug} mobile under ${priceRange[key]}`}
             headerRight={
               <MaterialButton
                 title={"VIEW ALL"}
@@ -41,9 +41,9 @@ const ProductStore = (props) => {
             }}
           >
             <div style={{ display: "flex" }}>
-              {product.productsByPrice[key].map((product) => (
+              {product?.productsByPrice[key]?.map((product) => (
                 <Link
-                  to={`${product.slug}/${product._id}/p`}
+                  to={`${product?.slug}/${product?._id}/p`}
                   style={{
                     display: "block",
                     textDecoration: "none",
@@ -52,10 +52,10 @@ const ProductStore = (props) => {
                   className="productContainer"
                 >
                   <div className="productImgContainer">
-                  <img src={product.productPictures[0].img} alt="img" />
+                    <img src={generatePublicUrl(product?.productPictures[0]?.img)} alt="img" />
                   </div>
                   <div className="productInfo">
-                    <div style={{ margin: "10px 0" }}>{product.name}</div>
+                    <div style={{ margin: "10px 0" }}>{product?.name}</div>
                     <div>
                       <Rating value="4.3" />
                       &nbsp;&nbsp;
@@ -69,7 +69,7 @@ const ProductStore = (props) => {
                         (3353)
                       </span>
                     </div>
-                    <Price value={product.price} />
+                    <Price value={product?.price} />
                   </div>
                 </Link>
               ))}

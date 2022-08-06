@@ -6,12 +6,7 @@ import goldenStar from "../../images/logo/golden-star.png";
 import { login, signout, getCartItems, signup as _signup } from "../../actions";
 import { IoIosArrowDown, IoIosCart, IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
-import {
-  Modal,
-  MaterialInput,
-  MaterialButton,
-  DropdownMenu,
-} from "../MaterialUI/materialui";
+import { Modal, MaterialInput, MaterialButton, DropdownMenu } from "../MaterialUI/materialui";
 import Cart from "../UI/cart";
 
 const Header = (props) => {
@@ -22,20 +17,15 @@ const Header = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
 
   // state cart value
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state?.cart);
 
   const userSignup = () => {
     const user = { firstName, lastName, email, password };
-    if (
-      firstName === "" ||
-      lastName === "" ||
-      email === "" ||
-      password === ""
-    ) {
+    if (firstName === "" || lastName === "" || email === "" || password === "") {
       return;
     }
 
@@ -55,15 +45,19 @@ const Header = (props) => {
   };
 
   useEffect(() => {
-    if (auth.authenticate) {
+    if (auth?.authenticate) {
       setLoginModal(false);
     }
-  }, [auth.authenticate]);
+  }, [auth?.authenticate]);
 
   const renderLoggedInMenu = () => {
     return (
       <DropdownMenu
-        menu={<Link to="" className="fullName">{auth.user.fullName}</Link>}
+        menu={
+          <Link to="" className="fullName">
+            {auth?.user?.fullName}
+          </Link>
+        }
         menus={[
           { label: "My Profile", href: "", icon: null },
           { label: "SuperCoin Zone", href: "", icon: null },
@@ -108,7 +102,7 @@ const Header = (props) => {
             href: `/account/orders`,
             icon: null,
             onClick: () => {
-              !auth.authenticate && setLoginModal(true);
+              !auth?.authenticate && setLoginModal(true);
             },
           },
           { label: "Wishlist", href: "", icon: null },
@@ -145,9 +139,7 @@ const Header = (props) => {
             </div>
             <div className="rightspace">
               <div className="loginInputContainer">
-                {auth.error && (
-                  <div style={{ color: "red", fontSize: 12 }}>{auth.error}</div>
-                )}
+                {auth.error && <div style={{ color: "red", fontSize: 12 }}>{auth?.error}</div>}
                 {signup && (
                   <MaterialInput
                     type="text"
@@ -222,10 +214,7 @@ const Header = (props) => {
           }}
         >
           <div className="searchInputContainer">
-            <input
-              className="searchInput"
-              placeholder={"search for products, brands and more"}
-            />
+            <input className="searchInput" placeholder={"search for products, brands and more"} />
             <div className="searchIconContainer">
               <IoIosSearch
                 style={{
@@ -239,7 +228,7 @@ const Header = (props) => {
 
         {/* right side menu */}
         <div className="rightMenu">
-          {auth.authenticate ? renderLoggedInMenu() : renderNonLoggedInMenu()}
+          {auth?.authenticate ? renderLoggedInMenu() : renderNonLoggedInMenu()}
           <DropdownMenu
             menu={
               <Link to="" className="more">
@@ -257,7 +246,7 @@ const Header = (props) => {
           />
           <div>
             <Link to={`/cart`} className="cart">
-              <Cart count={Object.keys(cart.cartItems).length} />
+              <Cart count={Object?.keys(cart?.cartItems)?.length} />
               <span style={{ margin: "0 10px" }}>Cart</span>
             </Link>
           </div>

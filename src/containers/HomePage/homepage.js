@@ -14,12 +14,10 @@ const HomePage = (props) => {
               alt=""
             />
             <div className="home-container-mockup-text">
-              <h1 className="home-mockup-heading">
-                Marketing that drives e‑commerce success
-              </h1>
+              <h1 className="home-mockup-heading">Marketing that drives e‑commerce success</h1>
               <p className="home-mockup-subheading">
-                Whether you’re getting online for the first time or scaling,
-                Mailchimp has tools and insights to help you sell more stuff.
+                Whether you’re getting online for the first time or scaling, Mailchimp has tools and
+                insights to help you sell more stuff.
               </p>
             </div>
           </div>
@@ -46,8 +44,8 @@ const HomePage = (props) => {
           <div className="text-container">
             <h1 className="home-fc-heading">Keep community at our center</h1>
             <p className="home-fc-text">
-              Community is at the heart of everything we do. Nurture healthy
-              communities where everyone is encouraged to learn and give back.
+              Community is at the heart of everything we do. Nurture healthy communities where
+              everyone is encouraged to learn and give back.
             </p>
           </div>
         </div>

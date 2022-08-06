@@ -14,7 +14,7 @@ const Rating = (props) => {
         padding: "2px 5px",
       }}
     >
-      {props.value} <IoIosStar />
+      {props?.value} <IoIosStar />
     </span>
   );
 };

@@ -4,9 +4,9 @@ import "./card.css";
 const Card = (props) => {
   return (
     <div className="card" {...props}>
-      {(props.headerLeft || props.headerRight) && (
+      {(props?.headerLeft || props?.headerRight) && (
         <div className="cardHeader">
-          {props.headerLeft && (
+          {props?.headerLeft && (
             <div
               style={{
                 alignSelf: "center",
@@ -14,14 +14,14 @@ const Card = (props) => {
                 fontWeight: "500",
               }}
             >
-              {props.headerLeft}
+              {props?.headerLeft}
             </div>
           )}
-          {props.headerRight && props.headerRight}
+          {props?.headerRight && props?.headerRight}
         </div>
       )}
 
-      {props.children}
+      {props?.children}
     </div>
   );
 };

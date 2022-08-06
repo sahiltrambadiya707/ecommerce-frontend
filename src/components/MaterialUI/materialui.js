@@ -3,17 +3,17 @@ import "./materialui.css";
 import { Link } from "react-router-dom";
 
 const Modal = (props) => {
-  if (!props.visible) {
+  if (!props?.visible) {
     return null;
   }
   return (
     <>
       <div className="modalFixedBg">
         <div style={{ position: "relative" }}>
-          <div className="modalClose" onClick={props.onClose}>
+          <div className="modalClose" onClick={props?.onClose}>
             X
           </div>
-          <div className="modalContainer">{props.children}</div>
+          <div className="modalContainer">{props?.children}</div>
         </div>
       </div>
     </>
@@ -21,7 +21,7 @@ const Modal = (props) => {
 };
 
 const MaterialInput = (props) => {
-  const [focus, setFocus] = useState(props.value === "" ? false : true);
+  const [focus, setFocus] = useState(props?.value === "" ? false : true);
   const [touch, setTouch] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ const MaterialInput = (props) => {
           lineHeight: "none",
         }}
       >
-        {props.label && `Enter ${props.label}`}
+        {props?.label && `Enter ${props?.label}`}
       </label>
       <div
         style={{
@@ -42,9 +42,9 @@ const MaterialInput = (props) => {
       >
         <input
           className="input"
-          type={props.type}
-          value={props.value}
-          onChange={props.onChange}
+          type={props?.type}
+          value={props?.value}
+          onChange={props?.onChange}
           onFocus={(e) => {
             setFocus(true);
             setTouch(true);
@@ -57,7 +57,7 @@ const MaterialInput = (props) => {
             }
           }}
         />
-        {props.rightElement ? props.rightElement : null}
+        {props?.rightElement ? props?.rightElement : null}
       </div>
       {touch && (
         <div
@@ -66,7 +66,7 @@ const MaterialInput = (props) => {
             color: "red",
             fontWeight: 500,
           }}
-        >{`${props.label} is Required`}</div>
+        >{`${props?.label} is Required`}</div>
       )}
     </div>
   );
@@ -74,26 +74,26 @@ const MaterialInput = (props) => {
 
 const MaterialButton = (props) => {
   const onClick = () => {
-    props.onClick && props.onClick();
+    props?.onClick && props?.onClick();
   };
   return (
     <div
       style={{
         width: "100%",
-        ...props.style,
+        ...props?.style,
       }}
     >
       <button
         className="materialButton"
         style={{
-          backgroundColor: props.bgColor,
-          color: props.textColor,
-          fontSize: props.fontSize,
+          backgroundColor: props?.bgColor,
+          color: props?.textColor,
+          fontSize: props?.fontSize,
         }}
         onClick={onClick}
       >
-        {props.icon && props.icon}
-        {props.title && props.title}
+        {props?.icon && props?.icon}
+        {props?.title && props?.title}
       </button>
     </div>
   );
@@ -108,21 +108,21 @@ const DropdownMenu = (props) => {
           <div className="upArrow"></div>
         </div>
         <div className="dropdownMenu">
-          {props.firstMenu}
+          {props?.firstMenu}
           <ul className="headerDropdownMenu">
-            {props.menus &&
+            {props?.menus &&
               props.menus.map((item, index) => (
                 <li key={index}>
                   <Link
                     onClick={(e) => {
-                      if (item.onClick) {
+                      if (item?.onClick) {
                         e.preventDefault();
-                        item.onClick && item.onClick();
+                        item?.onClick && item?.onClick();
                       }
                     }}
-                    to={`${item.href}`}
+                    to={`${item?.href}`}
                   >
-                    {item.label}
+                    {item?.label}
                   </Link>
                 </li>
               ))}
@@ -136,7 +136,7 @@ const DropdownMenu = (props) => {
 const Anchor = (props) => {
   return (
     <button {...props} className="anchorButton">
-      {props.name}
+      {props?.name}
     </button>
   );
 };
@@ -145,11 +145,11 @@ const Breed = (props) => {
   return (
     <div className="breed">
       <ul>
-        {props.breed &&
-          props.breed.map((item, index) => (
+        {props?.breed &&
+          props?.breed?.map((item, index) => (
             <li key={index}>
-              <Link to={item.href}>{item.name}</Link>
-              {props.breedIcon}
+              <Link to={item?.href}>{item?.name}</Link>
+              {props?.breedIcon}
             </li>
           ))}
       </ul>

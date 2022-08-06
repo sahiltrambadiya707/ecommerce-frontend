@@ -7,7 +7,7 @@ const Layout = (props) => {
     <>
       <Header />
       <MenuHeader />
-      {props.children}
+      {props?.children}
     </>
   );
 };

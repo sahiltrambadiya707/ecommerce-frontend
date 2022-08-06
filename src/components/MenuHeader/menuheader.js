@@ -5,7 +5,7 @@ import { getAllCategory } from "../../actions";
 import { Link } from "react-router-dom";
 
 const MenuHeader = (props) => {
-  const category = useSelector((state) => state.category);
+  const category = useSelector((state) => state?.category);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,20 +15,16 @@ const MenuHeader = (props) => {
   const renderCategories = (categories) => {
     let myCategories = [];
     for (let category of categories) {
-      myCategories.push(
-        <li key={category.name}>
-          {category.parentId ? (
-            <Link
-              to={`/${category.slug}?cid=${category._id}&type=${category.type}`}
-            >
-              {category.name}
+      myCategories?.push(
+        <li key={category?.name}>
+          {category?.parentId ? (
+            <Link to={`/${category?.slug}?cid=${category?._id}&type=${category?.type}`}>
+              {category?.name}
             </Link>
           ) : (
-            <span>{category.name}</span>
+            <span>{category?.name}</span>
           )}
-          {category.children.length > 0 ? (
-            <ul>{renderCategories(category.children)}</ul>
-          ) : null}
+          {category?.children?.length > 0 ? <ul>{renderCategories(category?.children)}</ul> : null}
         </li>
       );
     }
@@ -36,11 +32,7 @@ const MenuHeader = (props) => {
   };
   return (
     <div className="menuHeader">
-      <ul>
-        {category.categories.length > 0
-          ? renderCategories(category.categories)
-          : null}
-      </ul>
+      <ul>{category?.categories?.length > 0 ? renderCategories(category?.categories) : null}</ul>
     </div>
   );
 };

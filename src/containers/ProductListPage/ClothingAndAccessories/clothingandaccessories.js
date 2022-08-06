@@ -5,14 +5,15 @@ import Card from "../../../components/UI/Card/card";
 import { BiRupee } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import "./clothingandaccessories.css";
+import { generatePublicUrl } from "../../../urlConfig";
 
 const ClothingAndAccessories = (props) => {
-  const product = useSelector((state) => state.product);
+  const product = useSelector((state) => state?.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const { match } = props;
-    dispatch(getProductsBySlug(match.params.slug));
+    dispatch(getProductsBySlug(match?.params?.slug));
   }, [dispatch, props]);
 
   return (
@@ -26,17 +27,14 @@ const ClothingAndAccessories = (props) => {
       >
         {product.products.map((product) => (
           <div className="caContainer">
-            <Link
-              className="caImgContainer"
-              to={`/${product.slug}/${product._id}/p`}
-            >
-              <img src={product.productPictures[0].img} />
+            <Link className="caImgContainer" to={`/${product?.slug}/${product?._id}/p`}>
+              <img src={generatePublicUrl(product?.productPictures[0]?.img)} alt="" />
             </Link>
             <div>
-              <div className="caProductName">{product.name}</div>
+              <div className="caProductName">{product?.name}</div>
               <div className="caProductPrice">
                 <BiRupee />
-                {product.price}
+                {product?.price}
               </div>
             </div>
           </div>

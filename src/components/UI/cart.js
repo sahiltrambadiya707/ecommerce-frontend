@@ -19,7 +19,7 @@ const Cart = (props) => {
           right: "-6px",
         }}
       >
-        {props.count}
+        {props?.count}
       </span>
       <IoIosCart />
     </div>

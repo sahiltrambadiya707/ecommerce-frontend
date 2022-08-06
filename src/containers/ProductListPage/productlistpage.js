@@ -7,9 +7,9 @@ import ProductPage from "./ProductPage/productpage";
 
 const ProductListPage = (props) => {
   const renderProduct = () => {
-    const params = getParams(props.location.search);
+    const params = getParams(props?.location?.search);
     let content = null;
-    switch (params.type) {
+    switch (params?.type) {
       case "store":
         content = <ProductStore {...props} />;
         break;

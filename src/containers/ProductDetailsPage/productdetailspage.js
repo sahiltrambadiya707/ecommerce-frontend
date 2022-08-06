@@ -9,14 +9,15 @@ import { Breed, MaterialButton } from "../../components/MaterialUI/materialui";
 import "./productdetailspage.css";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../actions";
+import { generatePublicUrl } from "../../urlConfig";
 
 const ProductDetailsPage = (props) => {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product);
-  const category = useSelector((state) => state.category);
+  const product = useSelector((state) => state?.product);
+  const category = useSelector((state) => state?.category);
 
   useEffect(() => {
-    const { productId } = props.match.params;
+    const { productId } = props?.match?.params;
 
     const payload = {
       params: {
@@ -24,9 +25,9 @@ const ProductDetailsPage = (props) => {
       },
     };
     dispatch(getProductDetailsById(payload));
-  }, [dispatch, props.match.params]);
+  }, [dispatch, props?.match?.params]);
 
-  if (Object.keys(product.productDetails).length === 0) {
+  if (Object?.keys(product?.productDetails)?.length === 0) {
     return null;
   }
   return (
@@ -34,16 +35,16 @@ const ProductDetailsPage = (props) => {
       <div className="productDescriptionContainer">
         <div className="flexRow">
           <div className="verticalImageStack">
-            {product.productDetails.productPictures.map((thumb, index) => (
+            {product?.productDetails?.productPictures?.map((thumb, index) => (
               <div className="thumbnail">
-                <img src={thumb.img} alt={thumb.img} />
+                <img src={generatePublicUrl(thumb?.img)} alt={thumb?.img} />
               </div>
             ))}
           </div>
           <div className="productDescContainer">
             <div className="productDescImgContainer">
               <img
-                src={product.productDetails.productPictures[0].img}
+                src={generatePublicUrl(product?.productDetails?.productPictures[0]?.img)}
                 alt="img"
               />
             </div>
@@ -59,10 +60,10 @@ const ProductDetailsPage = (props) => {
                 }}
                 icon={<IoMdCart />}
                 onClick={() => {
-                  const { _id, name, price } = product.productDetails;
-                  const img = product.productDetails.productPictures[0].img;
+                  const { _id, name, price } = product?.productDetails;
+                  const img = product?.productDetails?.productPictures[0]?.img;
                   dispatch(addToCart({ _id, name, price }));
-                  props.history.push(`/cart`);
+                  props?.history?.push(`/cart`);
                 }}
               />
               <MaterialButton
@@ -73,7 +74,7 @@ const ProductDetailsPage = (props) => {
                   marginLeft: "5px",
                 }}
                 icon={<AiFillThunderbolt />}
-                onClick={() => props.history.push(`/checkout`)}
+                onClick={() => props?.history?.push(`/checkout`)}
               />
             </div>
           </div>
@@ -100,7 +101,7 @@ const ProductDetailsPage = (props) => {
                 <IoIosArrowForward />
               </li>
               <li>
-                <Link to="#">{product.productDetails.name}</Link>
+                <Link to="#">{product?.productDetails?.name}</Link>
               </li>
             </ul>
           </div>
@@ -108,14 +109,12 @@ const ProductDetailsPage = (props) => {
           {/* </Breed> */}
           {/* product description */}
           <div className="productDetails">
-            <p className="productTitle">{product.productDetails.name}</p>
+            <p className="productTitle">{product?.productDetails?.name}</p>
             <div>
               <span className="ratingCount">
                 4.3 <IoIosStar />
               </span>
-              <span className="ratingNumbersReviews">
-                72,234 Ratings & 8,140 Reviews
-              </span>
+              <span className="ratingNumbersReviews">72,234 Ratings & 8,140 Reviews</span>
             </div>
             <div className="extraOffer">
               Extra <BiRupee />
@@ -124,7 +123,7 @@ const ProductDetailsPage = (props) => {
             <div className="flexRow priceContainer">
               <span className="price">
                 <BiRupee />
-                {product.productDetails.price}
+                {product?.productDetails?.price}
               </span>
               <span className="discount" style={{ margin: "0 10px" }}>
                 22% off
@@ -159,7 +158,7 @@ const ProductDetailsPage = (props) => {
                     color: "#212121",
                   }}
                 >
-                  {product.productDetails.description}
+                  {product?.productDetails?.description}
                 </span>
               </p>
             </div>
